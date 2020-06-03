@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import './App.css';
 
-class App extends Component{
+
+class Login extends Component{
   render(){
     return (
       <div>
-        { this.props.children }
+        this is a Login page!!!
       </div>
     );
   }
 }
-export default App;
+export default Login;
