@@ -10,6 +10,7 @@
         - [ref不能关联函数组件（可以关联函数组件的dom元素，也就是关联dom元素）](#ref不能关联函数组件可以关联函数组件的dom元素也就是关联dom元素)
     - [方式2回调访问ref](#方式2回调访问ref)
 - [ref组件间传递](#ref组件间传递)
+- [高阶组件中ref不会被传递](#高阶组件中ref不会被传递)
 - [ref转发](#ref转发)
 
 <!-- /TOC -->
@@ -250,5 +251,59 @@ class Parent extends React.Component {
 }
 export default Parent;
 ```
+
+# 高阶组件中ref不会被传递
++ 背景：虽然高阶组件的约定是将所有 props 传递给被包装组件，但这对于 refs 并不适用。那是因为 ref 实际上并不是一个 prop - 就像 key 一样，它是由 React 专门处理的。如果将 ref 添加到 HOC 的返回组件中，则 ref 引用指向容器组件，而不是被包装组件
++ 解决办法：通过`React.forwardRef`方式转发ref就行
+
 # ref转发
-+ 区别：转发和
++ Refs 转发：将父组件创建的 ref 传递给子组件的某个dom元素（或组件）。让父组件可以直接操作该dom元素（或组件）
++ ref转发和不转发的区别和联系：
+  - 区别：ref转发父子组件之间从头到尾是一个ref；ref不转发时，父组件直接操作子组件dom可以通过在子组件内创建新的ref并绑定到dom元素上，此时父组件通过自己的ref获取到子组件的实例，再通过子组件的实例的自己的ref操作到子组件的dom元素；
+  - 一般情况下ref转发都可以使用不转发替代，只有当存在高阶组件时，使用`React.forwardRef`转发更好
+```js
+// 示例1：
+class InputChild extends React.Component{
+  constructor(){
+    super()
+    this.inputRef = React.createRef()
+  }
+  render(){
+    return (
+      <input ref={this.inputRef}></input>
+    )
+  }
+}
+class App extends React.Component {
+  constructor() {
+    super()
+    this.icRef = React.createRef();
+  }
+  render () {
+    <InputChild ref={this.icRef}>Click me!</InputChild>;
+  }
+}
+this.icRef.current.inputRef.current.focus() // input 获取焦点
+
+
+// 示例2：ref转发
+const InputChild = React.forwardRef((props, ref) => (
+  <input ref={ref}>
+  </input>
+));
+class App extends React.Component {
+  constructor() {
+    super()
+    this.icRef = React.createRef();
+  }
+  handleClick = () => {
+    this.icRef.current.focus()
+  }
+  render () {
+     <>
+      <button onClick={this.handleClick}>Learn React</button>
+      <InputChild ref={this.icRef}>Click me!</InputChild>;
+     </>
+  }
+}
+```

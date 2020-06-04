@@ -4,20 +4,20 @@ import './index.less';
 import Utils from '../../utils/utils';
 import Axios from '../../axios/index';
 
-class Header extends Component{
+class Header extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             userName: '',
             time: ''
         };
     }
-    componentWillMount(){
+    componentWillMount() {
         this.setState({
             userName: '乐仔'
         });
-        setInterval(()=>{
+        setInterval(() => {
             let time = Utils.formatDate(new Date());
             this.setState({
                 time: time
@@ -37,32 +37,42 @@ class Header extends Component{
                 dayPictureUrl: data.dayPictureUrl,
                 nightPictureUrl: data.nightPictureUrl
             });
-        }).catch( e => {
+        }).catch(e => {
         })
     }
-    render(){
-        return(
+    render() {
+        let menuType = this.props.menuType;
+        return (
             <div className="header">
                 <Row className="header-top">
-                    <Col span={24}>
+                    {
+                        menuType ? <Col span={6}>
+                            <img src="../../resources/logo.png" alt="图片加载失败"/>
+                            <span>IMooc 通用管理系统</span>
+                        </Col> : ''
+                    }
+                    <Col span={menuType ? 18 : 24}>
                         <span>欢迎，{this.state.userName}</span>
                         <a href="#">退出</a>
                     </Col>
                 </Row>
-                <Row className="header-bottom">
-                    <Col span={4} className="header-bottom-title">
-                        首页
-                    </Col>
-                    <Col span={20} className="time-weather">
-                        <span className="date">{ this.state.time }</span>
-                        <span className="weather-img">
-                            <img src={this.state.nightPictureUrl} />
-                        </span>
-                        <span className="weather-detail">
-                            {this.state.weather}
-                        </span>
-                    </Col>
-                </Row>
+                {
+                    menuType ? '' : <Row className="header-bottom">
+                        <Col span={4} className="header-bottom-title">
+                            首页
+                        </Col>
+                        <Col span={20} className="time-weather">
+                            <span className="date">{this.state.time}</span>
+                            <span className="weather-img">
+                                <img src={this.state.nightPictureUrl} />
+                            </span>
+                            <span className="weather-detail">
+                                {this.state.weather}
+                            </span>
+                        </Col>
+                    </Row>
+                }
+
             </div>
         );
     }

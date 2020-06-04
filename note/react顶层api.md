@@ -1,3 +1,26 @@
+<!-- TOC -->
+
+- [组件](#%e7%bb%84%e4%bb%b6)
+  - [React.Component](#reactcomponent)
+  - [React.PureComponent](#reactpurecomponent)
+  - [React.memo](#reactmemo)
+- [创建 React 元素](#%e5%88%9b%e5%bb%ba-react-%e5%85%83%e7%b4%a0)
+  - [createElement()](#createelement)
+  - [createFactory()](#createfactory)
+- [转换元素](#%e8%bd%ac%e6%8d%a2%e5%85%83%e7%b4%a0)
+  - [cloneElement()](#cloneelement)
+  - [isValidElement()](#isvalidelement)
+  - [React.Children](#reactchildren)
+- [React.Fragment](#reactfragment)
+- [Refs](#refs)
+  - [React.createRef](#reactcreateref)
+  - [React.forwardRef](#reactforwardref)
+- [Suspense](#suspense)
+  - [React.lazy](#reactlazy)
+  - [React.Suspense](#reactsuspense)
+- [Hook](#hook)
+
+<!-- /TOC -->
 # 组件
 + 概念: 可以通过子类 React.Component 或 React.PureComponent 来定义 React 组件
 ## React.Component
@@ -32,6 +55,11 @@ React.createElement(
 ```
 ```js
 // 示例1：使用JSX
+<div></div>;
+<div>Hello {this.props.toWhat}</div>;
+<div content="xiaoming">Hello {this.props.toWhat}</div>;
+
+
 class Hello extends React.Component {
   render() {
     return <div>Hello {this.props.toWhat}</div>;
