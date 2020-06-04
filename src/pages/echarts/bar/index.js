@@ -1,5 +1,30 @@
-// import React from 'react'
-// import {Card} from 'antd'
+import React from 'react'
+import {Card} from 'antd'
+export default class Bar extends React.Component{
+    say(){
+        console.log("1: ",this)
+        setTimeout(() => {
+            console.log("settimeSay: ", this)
+        }, 1000);
+    }
+    show = ()=>{
+        console.log("2: ", this)
+        setTimeout(() => {
+            console.log("settimeShow: ", this)
+        }, 1000);
+        var aa = {
+            bb: function (){
+                console.log("3: ",this)
+                setTimeout(() => {
+                    console.log("aa: ", this)
+                }, 1000);
+            }
+        }
+        aa.bb();
+    }
+}
+
+
 
 // // 按需加载
 // import echarts from 'echarts/lib/echarts'

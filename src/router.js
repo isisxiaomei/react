@@ -45,7 +45,7 @@ class IRouter extends React.Component {
                                 <Route path="/admin/order" component={Order} />
                                 <Route path="/admin/user" component={User} />
                                 <Route path="/admin/bikeMap" component={BikeMap} />
-                                {/* <Route path="/admin/echarts/bar" component={Bar} /> */}
+                                <Route path="/admin/echarts/bar" component={Bar} />
                                 <Route component={NoMatch} />
                             </Switch>
                         </Admin>
