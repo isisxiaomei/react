@@ -20,6 +20,8 @@ import User from './pages/user/index';
 import BikeMap from './pages/bikeMap/index';
 import OrderDetail from './pages/order/detail'
 import Bar from './pages/echarts/bar/index';
+import Pie from './pages/echarts/pie/index';
+import Line from './pages/echarts/line/index';
 import Common from './common';
 
 class IRouter extends React.Component {
@@ -46,6 +48,8 @@ class IRouter extends React.Component {
                                 <Route path="/admin/user" component={User} />
                                 <Route path="/admin/bikeMap" component={BikeMap} />
                                 <Route path="/admin/echarts/bar" component={Bar} />
+                                <Route path="/admin/echarts/pie" component={Pie} />
+                                <Route path="/admin/echarts/line" component={Line} />
                                 <Route component={NoMatch} />
                             </Switch>
                         </Admin>

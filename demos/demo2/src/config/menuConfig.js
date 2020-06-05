@@ -85,17 +85,17 @@ const menuList = [
         key: '/admin/bikeMap'
     },{
         title: '图标',
-        key: '/admin/charts',
+        key: '/admin/echarts',
         children: [
             {
                 title: '柱形图',
-                key: '/admin/charts/bar'
+                key: '/admin/echarts/bar'
             },{
                 title: '饼图',
-                key: '/admin/charts/pie'
+                key: '/admin/echarts/pie'
             },{
                 title: '折线图',
-                key: '/admin/charts/line'
+                key: '/admin/echarts/line'
             }
         ]
     },{
