@@ -1,7 +1,11 @@
 import React from 'react'
 import { Card, Button, Modal } from 'antd'
+
+// 文本编辑器
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+// 用于将文本转换成html标签
 import draftToHtml from 'draftjs-to-html';
 export default class Rich extends React.Component {
 

@@ -23,6 +23,7 @@ import OrderDetail from './pages/order/detail'
 import Bar from './pages/echarts/bar/index';
 import Pie from './pages/echarts/pie/index';
 import Line from './pages/echarts/line/index';
+import Permission from './pages/permission/index';
 import Common from './common';
 
 class IRouter extends React.Component {
@@ -52,6 +53,7 @@ class IRouter extends React.Component {
                                 <Route path="/admin/echarts/bar" component={Bar} />
                                 <Route path="/admin/echarts/pie" component={Pie} />
                                 <Route path="/admin/echarts/line" component={Line} />
+                                <Route path="/admin/permission" component={Permission} />
                                 <Route component={NoMatch} />
                             </Switch>
                         </Admin>
