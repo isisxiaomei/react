@@ -45,7 +45,7 @@ export default class Rich extends React.Component {
                     <Button type="primary" onClick={this.handleClearContent}>清空文本</Button>
                     <Button type="primary" onClick={this.handleGetText} style={{marginLeft: 10}}>获取html文本</Button>
                 </Card>
-                <Card title="富文本编辑器" >
+                <Card title="富文本编辑器" style={{height: 500, marginTop: 20}}>
                     <Editor
                         editorState={this.state.editorState}
                         // 编辑器编辑区域是否展示文本事件

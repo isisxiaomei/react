@@ -135,8 +135,11 @@ export default class User extends React.Component {
             }
         }).then(res => {
             this.setState({
-                isVisible: false
+                isVisible: false,
+                selectedItem: null,
+                selectedRowKeys: []
             });
+            message.success(res.result);
             this.requestList();
         })
     }
