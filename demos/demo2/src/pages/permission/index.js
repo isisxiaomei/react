@@ -147,7 +147,7 @@ export default class PermissionUser extends React.Component {
             this.setState({
                 isPermVisible: false,
                 selectedRowKeys: [],
-                selectedItem: {}
+                selectedItem: null
             })
             message.success(res.result);
         });
@@ -177,7 +177,6 @@ export default class PermissionUser extends React.Component {
             Axios.requestList(this, '/role/list');
             message.success(res.result);
         })
-        
     }
     render() {
         const columns = [
