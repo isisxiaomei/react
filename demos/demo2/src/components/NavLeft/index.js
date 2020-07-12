@@ -21,8 +21,6 @@ class NavLeft extends Component {
 
 
     handleClick = ({item}) => {
-
-        console.log("======",item.props.title);
         let { dispatch } =  this.props;
         dispatch(switchMenu(item.props.title))
         this.setState({

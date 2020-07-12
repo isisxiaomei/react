@@ -16,7 +16,7 @@ class Header extends Component {
     }
     componentWillMount() {
         this.setState({
-            userName: '乐仔'
+            userName: '小盆友'
         });
         setInterval(() => {
             let time = Utils.formatDate(new Date());
