@@ -1,0 +1,94 @@
+# 0. 高阶组件介绍
+
+- 除了ref之外其他都可以传递
+- 高阶组件是一个函数，参数是组件，返回值是组件的函数
+
+# 1. 基础组件
+
+```js
+// 基础组件.js
+
+class NormalComponent extends PureComponent{
+  render(){
+    return <div>hello</div>
+  }
+}
+
+export default NormalComponent
+
+
+// index.js
+
+import NormalComponent from './基础组件.js'
+
+ReactDOM.render(<NormalComponent />, document.getElementById('root'))
+
+```
+
+# 2. 高阶组件
+
+```js
+// 高阶组件.js
+
+class NormalComponent extends PureComponent{
+  render(){
+    return <div>hello</div>
+  }
+}
+
+
+function HeighOrderComponent(WrapperedComponent){
+  // 这里返回一个类，类名NewComponent可以不用写，类似于返回一个匿名函数
+  return Class NewComponent extends PureComponent{
+    render(){
+      return <WrapperedComponent />
+    }
+  }
+}
+
+const ContainerComponent = HeighOrderComponent(NormalComponent)
+export default ContainerComponent
+
+
+// index.js
+
+import ContainerComponent from './高阶组件.js'
+
+// ContainerComponent其实就是NewComponent
+ReactDOM.render(<ContainerComponent />, document.getElementById('root'))
+
+```
+
+# 3. 高阶组件传参
+
+```js
+
+// 高阶组件.js
+
+class NormalComponent extends PureComponent{
+  render(){
+    // hello why
+    return <div>hello {this.props.name}</div>
+  }
+}
+
+function HeighOrderComponent(WrapperedComponent){
+  // 这里返回一个类，类名NewComponent可以不用写，类似于返回一个匿名函数
+  return Class NewComponent extends PureComponent{
+    render(){
+      return <WrapperedComponent {...this.props}/>
+    }
+  }
+}
+const ContainerComponent = HeighOrderComponent(NormalComponent)
+export default ContainerComponent
+
+
+// index.js
+import ContainerComponent from './高阶组件.js'
+// ContainerComponent其实就是NewComponent, 所以参数name其实是传递给NewComponent组件，如果内部的WrapperedComponent组件()想获取，则需要通过props
+// WrapperedComponent就是传入NormalComponent组件，所以在NormalComponent组件中可以根据this.props.name获取到why
+ReactDOM.render(<ContainerComponent name="why"/>, document.getElementById('root'))
+
+```
+
