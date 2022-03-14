@@ -113,8 +113,31 @@ export default funtion TestHook(){
 ```
 
 
+# useEffect使用
+
+> 用于模拟类组件的生命周期
 
 
+```js
+import React, {useState} from 'react'
+
+export default funtion TestHook(){
+  const [counter, setCounter] = useState(0)
+  
+  // 修改tab显示当前计数
+  // useEffect回调触发时机：每次render后执行，相当于类组件的componentDidMount和componentDidUpdate的综合
+  useEffect(() => {
+    document.title = counter
+  })
+  
+  return (
+    <div>
+      <span>当前计数：{counter}<span>
+      <button onClick={e => setCounter(counter+1)}>+1</button>
+    </div>
+  )
+}
+```
 
 
 
