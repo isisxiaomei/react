@@ -63,3 +63,30 @@ export default funtion TestHook(){
 }
 
 ```
+
+```js
+// 基本使用
+import React, {useState} from 'react'
+
+export default funtion TestHook(){
+  const [counter, setCounter] = useState(() => 10)
+  
+  
+  return (
+    <div>
+      <span>{counter}<span>
+      <button onClick={e => setCounter((preCounter) => preCounter+1)}>+1</button>
+    </div>
+  )
+}
+
+```
+
+
+
+
+
+
+
+
+
