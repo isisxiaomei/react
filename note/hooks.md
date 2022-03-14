@@ -64,6 +64,24 @@ export default funtion TestHook(){
 
 ```
 
+
+```js
+// 基本使用
+import React, {useState} from 'react'
+
+export default funtion TestHook(){
+  const [counter, setCounter] = useState(() => 10)
+  return (
+    <div>
+      <span>{counter}<span>
+      <button onClick={e => setCounter((preCounter) => preCounter+1)}>+1</button>
+    </div>
+  )
+}
+```
+
+
+
 ```js
 // 基本使用
 import React, {useState} from 'react'
@@ -71,11 +89,23 @@ import React, {useState} from 'react'
 export default funtion TestHook(){
   const [counter, setCounter] = useState(() => 10)
   
+  // 这种方式会合并最终只加一次  结果是20
+  function handleClick(){
+    setCounter(counter+10)
+    setCounter(counter+10)
+    setCounter(counter+10)
+  }
   
+  // 每次获取之前的值，并在其基础上再操作，结果是40
+  function handleClickCallBackWay(){
+    setCounter((preCounter) => preCounter+10)
+    setCounter((preCounter) => preCounter+10)
+    setCounter((preCounter) => preCounter+10)
+  }
   return (
     <div>
       <span>{counter}<span>
-      <button onClick={e => setCounter((preCounter) => preCounter+1)}>+1</button>
+      <button onClick={handleClick}>点击</button>
     </div>
   )
 }
