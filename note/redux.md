@@ -125,7 +125,7 @@ addAction = (num) => {
 
 ## 2.2 redux封装connect
 
-
+![](../connect.png)
 
 
 
