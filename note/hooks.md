@@ -139,7 +139,7 @@ export default funtion TestHook(){
   // useEffect回调触发时机：每次render后执行，相当于类组件的componentDidMount和componentDidUpdate的综合
   useEffect(() => {
     document.title = counter
-    //这里可以返回一个函数A，A触发的条件TestHook卸载时，相当于类生命周期的卸载函数
+    //这里可以返回一个函数A，A触发的条件TestHook卸载时，相当于类生命周期的卸载函数componentWillUnmount
   })
   
   return (
