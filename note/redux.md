@@ -308,17 +308,19 @@ export { StoreContext }
 ```
 
 ```js
-// App.js
+// index.js
 
 import {StoreContext} from 'utils/context.js'
 import store form 'store.js'
-import Home form 'home.js'
+import App form 'App.js'
+
+// 在App中渲染Home
 export default function App() {
   return (
     <div>
       <h1>App</h1>
       <StoreContext.Provider value={store}>
-        <Home />
+        <App />
       </StoreContext.Provider>
     </div>
   );
