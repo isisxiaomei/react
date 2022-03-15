@@ -375,8 +375,20 @@ export default function connect(mapStateToProps, mapDispath) {
 以上connect无需自己封装，有现成的react-redux库，react-redux库中的connect就完成以上的connect功能
 
 
+# 3. redux异步操作
+
+## 3.1 基本异步操作
+
+前面state数据来源于本地直接定义counter，但实际开发中都是需要从网络请求获取数据
+
+基本操作：在componentDidMounted中发送网络请求，将获取到的数据dispatch到store中；就可以正常使用
+
+```js
+代码
+```
 
 
+## 3.2 
 
 
 
