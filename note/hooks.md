@@ -178,4 +178,39 @@ export default function App() {
 
 ```
 
+----
+
+useEffect性能优化
+
+```js
+import React, { useState, useEffect } from 'react';
+import './style.css';
+
+export default function App() {
+  const [counter, setCounter] = useState(0);
+
+  // useEffect的第二个参数接受一个只读数组，数组中数据表示useEffect的第一个参数回调函数的依赖，只有数组的数据变化时，回调才会执行
+  // 修改DOM：依赖的counter，初始化时执行一次，后面是counter变化时才会执行
+  useEffect(() => {
+    console.log('修改DOM', counter);
+  }, [counter]);
+
+  // 传入空数组，说明不依赖任何变化，所以只会执行一次，后面不会再执行
+  // 由于网络请求什么的，我们只希望它初始化执行一次
+  useEffect(() => {
+    console.log('网络请求');
+  }, []);
+
+  return (
+    <div>
+      <h1>EffectHooks</h1>
+      <h1>{counter}</h1>
+      <button onClick={(e) => setCounter(counter + 1)}>+1</button>
+    </div>
+  );
+}
+
+```
+
+
 
