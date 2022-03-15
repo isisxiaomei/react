@@ -261,13 +261,17 @@ export default function connect(mapStateToProps, mapDispath) {
     return class extends PureComponent {
       constructor(props) {
         super(props);
-        this.state = mapStateToProps(store.getState());
+        this.state = {
+          storeState: mapStateToProps(store.getState());
+        }
       }
       componentDidMount() {
         this.unSubscribe = sotre.subscribe(() => {
           // 这里不能直接写 this.setState(store.getState());  因为store.getState()中返回所有状态
           // 而这个mapStateToProps(store.getState())返回的是传入mapStateToProps参数的组件所需状态
-          this.setState(mapStateToProps(store.getState()));
+          this.setState({
+            storeState: mapStateToProps(store.getState())
+          });
         });
       }
       componentWillUnMount() {
