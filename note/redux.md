@@ -370,7 +370,9 @@ export default function connect(mapStateToProps, mapDispath) {
 }
 ```
 
+---
 
+以上connect无需自己封装，有现成的react-redux库，react-redux库中的connect就完成以上的connect功能
 
 
 
