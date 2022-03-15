@@ -388,7 +388,13 @@ export default function connect(mapStateToProps, mapDispath) {
 ```
 
 
-## 3.2 
+## 3.2 redux异步
+
+事实上直接在组件componentDidMounted中发送网络请求不友好，因为网络请求也属于数据的一部分，所以需要将网络请求也放在redux中
+
+让网络请求和组件解耦
+
+
 
 
 
