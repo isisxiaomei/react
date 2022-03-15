@@ -152,6 +152,30 @@ export default funtion TestHook(){
 ```
 
 
+```js
+import React, { useState, useEffect } from 'react';
+import './style.css';
 
+export default function App() {
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    console.log('订阅事件');
+    return () => {
+      console.log('取消订阅事件');
+    };
+  });
+
+  console.log('1111');
+  return (
+    <div>
+      <h1>EffectHooks</h1>
+      <h1>{counter}</h1>
+      <button onClick={(e) => setCounter(counter + 1)}>+1</button>
+    </div>
+  );
+}
+
+```
 
 
