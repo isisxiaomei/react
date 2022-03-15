@@ -390,9 +390,19 @@ export default function connect(mapStateToProps, mapDispath) {
 
 ## 3.2 redux异步
 
-事实上直接在组件componentDidMounted中发送网络请求不友好，因为网络请求也属于数据的一部分，所以需要将网络请求也放在redux中
+背景：事实上直接在组件componentDidMounted中发送网络请求不友好，因为网络请求也属于数据的一部分，所以需要将网络请求也放在redux中
 
-让网络请求和组件解耦
+默认redux中如果要发送网络请求是不行的；action直接返回对象，reducer纯函数；所以需要借助redux提供的`中间件`完成
+
+redux中间件是在action和reducer之间插入一些操作(可以是日志记录、网络请求等)
+
+### 3.2.1 redux-thunk
+
+redux-thunk是专门用来发送网络请求的
+
+
+
+
 
 
 
