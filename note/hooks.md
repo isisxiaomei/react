@@ -221,8 +221,8 @@ export default function App() {
 import React from 'react';
 import './style.css';
 
-export const UserContext = createContext();
-export const ThemeContext = createContext();
+export const UserContext = React.createContext();
+export const ThemeContext = React.createContext();
 
 export default function App() {
   return (
