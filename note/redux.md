@@ -218,7 +218,73 @@ class About extends PureComponent {
 
 由于每个组件使用redux时，都需要在componentDidMount中订阅，派发以及取消订阅等操作；所以考虑提取公共部分，只需要将不同state和dispatch传入
 
-考虑引入一个connect工具函数，接受一个state和dispatch
+考虑引入一个connect工具函数，传入state和dispatch
+
+```js
+// 改装后的home.js
+function Home(props) {
+  return (
+    <div>
+      <p>home</p>
+      <p>{props.counter}</p>
+      <button onClick={(e) => props.add(5)}>点我</button>
+    </div>
+  );
+}
+
+// 把不同的状态映射到props
+const mapStateToProps = (state) => {
+  return {
+    counter: state.counter,
+  };
+};
+
+// 把不同的dispatch映射到props
+const mapDispathToProps = (dispatch) => {
+  return {
+    add: function (num) {
+      dispatch(addAction(num));
+    },
+    sub: function (num) {
+      dispatch(subAction(num));
+    },
+  };
+};
+
+
+connect(mapStateToProps, mapDispathToProps)(Home);
+
+
+// utils.js
+export default function connect(mapStateToProps, mapDispath) {
+  return function enhanceHOC(WrapperedComponent) {
+    return class extends PureComponent {
+      constructor(props) {
+        super(props);
+        this.state = mapStateToProps(store.getState());
+      }
+      componentDidMount() {
+        this.unSubscribe = sotre.subscribe(() => {
+          // 这里不能直接写 this.setState(store.getState());  因为store.getState()中返回所有状态
+          // 而这个mapStateToProps(store.getState())返回的是传入mapStateToProps参数的组件所需状态
+          this.setState(mapStateToProps(store.getState()));
+        });
+      }
+      componentWillUnMount() {
+        this.unSubscribe();
+      }
+
+      render() {
+        <WrapperedComponent
+          {...this.props}
+          {...mapStateToProps(store.getState())}
+          {...mapDispath(store.dispatch)}
+        />;
+      }
+    };
+  };
+}
+```
 
 
 
