@@ -255,7 +255,7 @@ const mapDispathToProps = (dispatch) => {
 connect(mapStateToProps, mapDispathToProps)(Home);
 
 
-// utils.js
+// utils.js(引入store)
 export default function connect(mapStateToProps, mapDispath) {
   return function enhanceHOC(WrapperedComponent) {
     return class extends PureComponent {
