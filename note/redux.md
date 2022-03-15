@@ -312,12 +312,13 @@ export { StoreContext }
 
 import {StoreContext} from 'utils/context.js'
 import store form 'store.js'
-
+import Home form 'home.js'
 export default function App() {
   return (
     <div>
       <h1>App</h1>
       <StoreContext.Provider value={store}>
+        <Home />
       </StoreContext.Provider>
     </div>
   );
