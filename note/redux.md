@@ -123,12 +123,104 @@ addAction = (num) => {
 
 ```
 
+
+
+
 ## 2.2 redux封装connect
+
+
+```js
+// Home.js
+class Home extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: store.getState().counter,
+    };
+  }
+
+  // 必须在这里订阅store，否则store中的state变化时 外部组件无法感知，进而组件不会render
+  componentDidMount() {
+    // subscribe  返回取消订阅函数
+    this.unSubscribe = sotre.subscribe(() => {
+      this.setState({
+        counter: store.getState().counter,
+      });
+    });
+  }
+
+  // 必须在组件卸载时取消订阅
+  componentWillUnMount() {
+    this.unSubscribe();
+  }
+
+  // addAction是外部引入
+  add(num) {
+    // addAction(num)返回值就是action对象
+    store.dispatch(addAction(num));
+  }
+
+  render() {
+    return (
+      <div>
+        <p>{this.state.counter}</p>
+        <button onClick={(e) => this.add(5)}>点我</button>
+      </div>
+    );
+  }
+}
+
+
+// About.js
+class About extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: store.getState().counter,
+    };
+  }
+
+  // 必须在这里订阅store，否则store中的state变化时 外部组件无法感知，进而组件不会render
+  componentDidMount() {
+    // subscribe  返回取消订阅函数
+    this.unSubscribe = sotre.subscribe(() => {
+      this.setState({
+        counter: store.getState().counter,
+      });
+    });
+  }
+
+  // 必须在组件卸载时取消订阅
+  componentWillUnMount() {
+    this.unSubscribe();
+  }
+
+  // addAction是外部引入
+  add(num) {
+    // addAction(num)返回值就是action对象
+    store.dispatch(addAction(num));
+  }
+
+  render() {
+    return (
+      <div>
+        <p>{this.state.counter}</p>
+        <button onClick={(e) => this.add(5)}>点我</button>
+      </div>
+    );
+  }
+}
+
+```
 
 ![](./image/connext.png)
 
 
 由于每个组件使用redux时，都需要在componentDidMount中订阅，派发以及取消订阅等操作；所以考虑提取公共部分，只需要将不同state和dispatch传入
+
+考虑引入一个connect工具函数，接受一个state和dispatch
+
+
 
 
 
