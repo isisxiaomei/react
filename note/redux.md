@@ -24,7 +24,6 @@ reducer是纯函数；不允许修改state；为什么不许修改state？
 reducer将传入的state和action结合生成一个新state
 
 ---
-
 # 2. redux使用
 
 ## 2.1 基本使用
@@ -128,6 +127,7 @@ addAction = (num) => {
 
 ## 2.2 redux封装connect
 
+connect其实就是在component和redux中间做了一层优化中转，将公共逻辑提取封装，将不同的state和dispatch外部传入
 
 ```js
 // Home.js
