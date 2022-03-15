@@ -71,25 +71,53 @@ store.dispatch(action2);
 
 ```js
 // 组件中使用
-constructor(){
-  this.state = {
-    counter: store.getState().counter
+class Home extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: store.getState().counter,
+    };
+  }
+
+  // 必须在这里订阅store，否则store中的state变化时 外部组件无法感知，进而组件不会render
+  componentDidMount() {
+    // subscribe  返回取消订阅函数
+    this.unSubscribe = sotre.subscribe(() => {
+      this.setState({
+        counter: store.getState().counter,
+      });
+    });
+  }
+
+  // 必须在组件卸载时取消订阅
+  componentWillUnMount() {
+    this.unSubscribe();
+  }
+
+  // addAction是外部引入
+  add(num) {
+    // addAction(num)返回值就是action对象
+    store.dispatch(addAction(num));
+  }
+
+  render() {
+    return (
+      <div>
+        <p>{this.state.counter}</p>
+        <button onClick={(e) => this.add(5)}>点我</button>
+      </div>
+    );
   }
 }
 
-// 必须在这里订阅store，否则store中的state变化时 外部组件无法感知，进而组件不会render
-componentDidMount(){
-  // subscribe  返回取消订阅函数
-  this.unSubscribe = sotre.subscribe(() => {
-    this.setState({
-      counter: store.getState().counter
-    })
-  })
-}
 
-// 必须在组件卸载时取消订阅
-componentWillUnMount(){
-  this.unSubscribe()
-}
+// actions文件；写的函数返回的action其实还会对象
+addAction = (num) => {
+  return {
+    type: 'ADD',
+    num,
+  };
+};
+
 ```
 
