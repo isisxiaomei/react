@@ -128,6 +128,9 @@ addAction = (num) => {
 ![](./image/connext.png)
 
 
+由于每个组件使用redux时，都需要在componentDidMount中订阅，派发以及取消订阅等操作；所以考虑提取公共部分，只需要将不同state和dispatch传入
+
+
 
 
 
