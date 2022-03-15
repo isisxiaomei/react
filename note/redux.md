@@ -255,7 +255,10 @@ const mapDispathToProps = (dispatch) => {
 connect(mapStateToProps, mapDispathToProps)(Home);
 
 
-// utils.js(引入store)
+// /utils/connect.js
+
+import store from './store'
+
 export default function connect(mapStateToProps, mapDispath) {
   return function enhanceHOC(WrapperedComponent) {
     return class extends PureComponent {
@@ -286,6 +289,80 @@ export default function connect(mapStateToProps, mapDispath) {
         />;
       }
     };
+  };
+}
+```
+
+---
+
+
+上述改装后的connect还无法对外开发，因为强依赖的业务store，思考如何将store传入？
+
+借助context将外部store传入
+
+
+```js
+// utils/context.js
+const StoreContext = React.createContext();
+export { StoreContext }
+```
+
+```js
+// App.js
+
+import {StoreContext} from 'utils/context.js'
+import store form 'store.js'
+
+export default function App() {
+  return (
+    <div>
+      <h1>App</h1>
+      <StoreContext.Provider value={store}>
+      </StoreContext.Provider>
+    </div>
+  );
+}
+```
+
+
+
+
+```js
+import {StoreContext} from 'utils/context.js'
+
+export default function connect(mapStateToProps, mapDispath) {
+  return function enhanceHOC(WrapperedComponent) {
+    class EnhanceComponent extends PureComponent {
+      constructor(props, context) {
+        super(props, context);
+        this.state = {
+          // 这里的store不能换成this.context，因为在初始时无法获取到this.context
+          // 一旦EnhanceComponent.contextType绑定了context，那么constructor就会多出第二个参数context，并且在super时需要也带上context初始化
+          storeState: mapStateToProps(context.getState());
+        }
+      }
+      componentDidMount() {
+        this.unSubscribe = this.context.subscribe(() => {
+          this.setState({
+            storeState: mapStateToProps(this.context.getState())
+          });
+        });
+      }
+      componentWillUnMount() {
+        this.unSubscribe();
+      }
+
+      render() {
+        <WrapperedComponent
+          {...this.props}
+          {...mapStateToProps(this.context.getState())}
+          {...mapDispath(this.context.dispatch)}
+        />;
+      }
+    }
+    // 这里将StoreContext绑定在EnhanceComponent上，就可以EnhanceComponent中使用this.context获取到StoreContext上绑定的value
+    EnhanceComponent.contextType = StoreContext
+    return EnhanceComponent
   };
 }
 ```
