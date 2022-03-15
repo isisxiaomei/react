@@ -27,8 +27,10 @@ reducer将传入的state和action结合生成一个新state
 
 # 2. redux基本使用
 
-```js
 
+
+```js
+// 基本使用
 const initState = {
   counter: 0,
 };
@@ -66,4 +68,28 @@ store.dispatch(action2);
 
 ```
 
+
+```js
+// 组件中使用
+constructor(){
+  this.state = {
+    counter: store.getState().counter
+  }
+}
+
+// 必须在这里订阅store，否则store中的state变化时 外部组件无法感知，进而组件不会render
+componentDidMount(){
+  // subscribe  返回取消订阅函数
+  this.unSubscribe = sotre.subscribe(() => {
+    this.setState({
+      counter: store.getState().counter
+    })
+  })
+}
+
+// 必须在组件卸载时取消订阅
+componentWillUnMount(){
+  this.unSubscribe()
+}
+```
 
