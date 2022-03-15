@@ -25,7 +25,9 @@ reducer将传入的state和action结合生成一个新state
 
 ---
 
-# 2. redux基本使用
+# 2. redux使用
+
+## 2.1 基本使用
 
 
 
@@ -120,4 +122,30 @@ addAction = (num) => {
 };
 
 ```
+
+## 2.2 redux封装connect
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
