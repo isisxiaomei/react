@@ -213,4 +213,53 @@ export default function App() {
 ```
 
 
+# 3. useContext
+
+
+```js
+// App.js
+import React from 'react';
+import './style.css';
+
+export const UserContext = createContext();
+export const ThemeContext = createContext();
+
+export default function App() {
+  return (
+    <div>
+      <h1>App</h1>
+      <UserContext.Provider value={{ name: 'isixu' }}>
+        <ThemeContext.Provider value={{ age: 18 }}>
+          <ContextHookDemo />
+        </ThemeContext.Provider>
+      </UserContext.Provider>
+    </div>
+  );
+}
+
+
+// useContextDemo.js
+import React, { useContext } from 'react';
+import { ThemeContext, UserContext } from '../App.js';
+
+export default function ContextHookDemo() {
+
+  // useContext接受一个context直接解析出context的value值返回给user
+  // 不需要再使用Consumer
+  const user = useContext(UserContext);
+  const theme = useContext(ThemeContext);
+  
+  // { name: 'isixu' }  { age: 18 }
+  console.log(user, theme);  
+  return (
+    <div>
+      <h1>ContextHookDemo</h1>
+    </div>
+  );
+}
+
+```
+
+
+
 
