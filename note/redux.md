@@ -459,7 +459,9 @@ const mapDispathToProps = (dispatch) => {
 
 
 
+# tools
 
+![](./image/redux-tools.png)
 
 
 
