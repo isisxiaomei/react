@@ -400,6 +400,7 @@ redux-thunk是专门用来发送网络请求的；
 
 redux-thunk原理：原有的dispath接受的是一个对象，对象就是action对象，所以无法进行网络请求的扩展；然而redux-thunk可以使得dispatch接受一个函数，可以在函数中进行网络请求
 
+![](./image/redux异步操作逻辑图.png)
 
 ```js
 // acitons.js
