@@ -396,7 +396,14 @@ redux中间件是在action和reducer之间插入一些操作(可以是日志记�
 
 ### 3.2.1 redux-thunk
 
-redux-thunk是专门用来发送网络请求的
+redux-thunk是专门用来发送网络请求的；
+
+redux-thunk原理：原有的dispath接受的是一个对象，对象就是action对象，所以无法进行网络请求的扩展；然而redux-thunk可以使得dispatch接受一个函数，可以在函数中进行网络请求
+
+
+```js
+
+```
 
 
 
