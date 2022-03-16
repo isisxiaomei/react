@@ -383,9 +383,7 @@ export default function connect(mapStateToProps, mapDispath) {
 
 基本操作：在componentDidMounted中发送网络请求，将获取到的数据dispatch到store中；就可以正常使用
 
-```js
-代码
-```
+![](./image/componentDidMount中请求数据.png)
 
 
 ## 3.2 redux异步
