@@ -402,7 +402,56 @@ redux-thunk原理：原有的dispath接受的是一个对象，对象就是actio
 
 
 ```js
+// acitons.js
+addAction = (num) => {
+  return {
+    type: 'ADD',
+    num,
+  };
+};
 
+// redux-thunk中定义的action函数 接受dispatch，在函数内部请求数据，然后通过dispatch其他action将数据更新到store
+// 第二个参数getState是store中的方法，如果本次请求需要依赖store中的数据，可以通过getState方法获取
+// dispatch, getState是中间件默认帮我们传递的
+const getHomeDataAction = (dispatch, getState) => {
+  axios({
+    url:xxx
+  }).then(res => {
+    const data = res.data.data
+    dispatch(addAction(data.banner.list))
+  })
+}
+
+// store.js
+import {createStore, applyMiddleware} from 'redux'
+import thunkMiddleware from 'redux-thunk'
+
+// 应用中间件applyMiddleware(中间价1，中间件2，...)
+const storeEnhancer = applyMiddleware(thunkMiddleware)
+
+// 通过将storeEnhancer传入到createStore中；就相当于将次中间件应用到store中
+const store = createStore(reducer,storeEnhancer )
+export store
+
+
+// home.js
+class Home extends PurComponents{
+  componentDidMount(){
+    this.props.getHomeData()
+  }
+}
+// 把不同的dispatch映射到props
+const mapDispathToProps = (dispatch) => {
+  return {
+    add: function (num) {
+      dispatch(addAction(num));
+    },
+    getHomeData: function(){
+      // 这里传入的action中getHomeDataAction函数；注意不要写成函数调用
+      dispatch(getHomeDataAction)
+    }
+  };
+};
 ```
 
 
