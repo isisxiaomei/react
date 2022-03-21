@@ -442,3 +442,41 @@ export default class App extends PureComponent() {
 }
 
 ```
+
+
+
+```js
+// withRouter高阶组件可以给组件额外增加属性
+// index.js
+import React from "react";
+import ReactDOM from "react-dom";
+
+import App from "./App";
+
+
+//  这里App是被withRouter的返回，这里的App必须包含在HashRouter或者browserRouter中，否则获取不到router管理的history和location以及match属性
+ReactDOM.render(
+  <HashRouter>
+    <App />
+   </HashRouter>,
+   document.getElementById("root"));
+
+
+
+// App.js
+class App extends PureComponent() {
+  handleClick(){
+    // 这里在this.props.history不存在，因为App组件并没有通过router路由渲染出来，而是通过直接渲染ReactDOM.render(<App />, document.getElementById("root"));
+    // 所以取不到Router附件的3个属性；此时可以采用高阶组件withRouter
+    this.props.history.push('/about');
+  }
+  return (
+    <div>
+      <Link to="/about">关于</Link>
+      <button onClick={(e) => this.handleClick}>点我</button>
+      <Route path="/about" component={About} />
+    </div>
+  );
+}
+export default withRouter(App)
+```
