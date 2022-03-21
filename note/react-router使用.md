@@ -363,4 +363,13 @@ function Dashboard() {
 
                 
                 
-# 8. 手动跳转
+# 8. 手动跳转路由
+
+**手动跳转路由有两种方式：**
+
+**方式1**：通过路由link管理渲染的组件about，about中可以访问3个属性（this.porps.history && this.props.location && this.props.match）
+
+比如场景： 比如在App的render中通过link路由跳转到About组件，在about组件的render中嵌套子路由，比如about的render中点击一个button，然后触发一个点击事件，在点击事件中通过this.props.history.push的方式跳转
+
+方式2：
+方式1可以访问3个属性的前提是
