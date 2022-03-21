@@ -11,6 +11,7 @@
 + BrowserRouter和HashRouter: 相当于路由器，路由容器，并且只能包含一个组件
 ```js
 // todo 两着区别
+HashRouter：说明底层用的是hashchange的方式（url中会带）；而BrowserRouter用的是history的pushState的方式
 ```
 ## 2. Route
 ### 2.1 Route简介
@@ -141,6 +142,7 @@
 
 ## 5. redirect
 + <Redirect>组件用于路由的跳转，即用户访问一个路由，会自动跳转到另一个路由
+- redirect跳转和link跳转的区别是link需要手动点击才进行跳转，而Redirect是自动跳转
 ```js
 // 示例1：访问/inbox/messages/5，会自动跳转到/messages/5
 <Route path="inbox" component={Inbox}>
