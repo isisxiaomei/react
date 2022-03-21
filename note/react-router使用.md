@@ -367,9 +367,78 @@ function Dashboard() {
 
 **手动跳转路由有两种方式：**
 
-**方式1**：通过路由link管理渲染的组件about，about中可以访问3个属性（this.porps.history && this.props.location && this.props.match）
+**方式1**：通过路由link管理渲染的组件about，通过路由渲染时about组件中就会被加入3个属性（this.porps.history && this.props.location && this.props.match）
 
 比如场景： 比如在App的render中通过link路由跳转到About组件，在about组件的render中嵌套子路由，比如about的render中点击一个button，然后触发一个点击事件，在点击事件中通过this.props.history.push的方式跳转
 
-方式2：
-方式1可以访问3个属性的前提是
+```js
+// App.js
+export default function App() {
+  return (
+    <div>
+      <Link to="/about">关于</Link>
+      <HashRouter>
+        <Route path="/about" component={About} />
+      </HashRouter>
+    </div>
+  );
+}
+
+// About.js
+function aboutJoinUs(props) {
+  return <div>加入我们</div>;
+}
+
+function aboutConnact(props) {
+  return <div>联系我们</div>;
+}
+
+export default class About extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
+  handleClick() {
+    console.log(this.props.history);
+    console.log(this.props.location);
+    console.log(this.props.match);
+    // 这里之所以可以访问this.props.history，因为当前的About组件是通过Router中的link管理跳转渲染的
+    // 如果没有router管理About，而是直接<About />渲染，那么无法访问到history
+    this.props.history.push('/about/join');
+  }
+  render() {
+    return (
+      <div>
+        <Link to="/about/connact"></Link>
+        <button onClick={(e) => this.handleClick}>加入我们</button>
+        <Switch>
+          <Route path="/about/connact" component={aboutConnact}></Route>
+          <Route path="/about/join" component={aboutJoinUs}></Route>
+        </Switch>
+      </div>
+    );
+  }
+}
+```
+
+方式2：通过withRouter这个高阶组件传入
+
+```js
+// 备注：方式1中的About中可以访问this.props.history，是因为about组件是通过link路由跳转的，由router路由渲染管理了；所以会附加3个属性history/location/match
+export default class App extends PureComponent() {
+  handleClick(){
+    // 这里在this.props.history不存在，因为App组件并没有通过router路由渲染出来，而是通过直接渲染ReactDOM.render(<App />, document.getElementById("root"));
+    // 所以取不到Router附件的3个属性；此时可以采用高阶组件withRouter
+    this.props.history.push('/about');
+  }
+  return (
+    <div>
+      <Link to="/about">关于</Link>
+      <button onClick={(e) => this.handleClick}>点我</button>
+      <HashRouter>
+        <Route path="/about" component={About} />
+      </HashRouter>
+    </div>
+  );
+}
+
+```
