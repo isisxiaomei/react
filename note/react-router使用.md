@@ -466,8 +466,6 @@ ReactDOM.render(
 // App.js
 class App extends PureComponent() {
   handleClick(){
-    // 这里在this.props.history不存在，因为App组件并没有通过router路由渲染出来，而是通过直接渲染ReactDOM.render(<App />, document.getElementById("root"));
-    // 所以取不到Router附件的3个属性；此时可以采用高阶组件withRouter
     this.props.history.push('/about');
   }
   return (
