@@ -86,7 +86,7 @@ HashRouter：说明底层用的是hashchange的方式（url中会带）；而Bro
     <Route path="/news" component={News}/>
 </HashRouter>
 
-// 解决办法：利用exact属性精准匹配
+// 解决办法：利用exact属性精准匹配（注意但是如果Route很多，在所有的path前增加exact会很麻烦，所以采用switch的方式，匹配到就不再匹配了）
 <HashRouter>
     // exact 属性设置的path精准匹配必须跟 url地址栏一模一样才会被匹配上
     <Route exact path="/" component={Home}/>
