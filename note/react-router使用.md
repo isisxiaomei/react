@@ -246,7 +246,7 @@ export default React.createClass({
     </Home>
 </Router>
 ```
-# 6. 两种使用路由方式
+# 6. 使用路由方式
 ## 6.1 路由组件混合
 ```js
 // 示例1：
@@ -339,7 +339,11 @@ function Dashboard() {
     {this.props.children}
 </div>
 ```
-
+## 6.3 借助react-router-config进行配置
+```js
+```
+            
+            
 # 7. 404路由
 + 不写path, 直接写component
 ```js
