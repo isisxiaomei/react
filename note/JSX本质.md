@@ -98,3 +98,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
+# 2. JSX的本质
