@@ -100,3 +100,34 @@ ReactDOM.render(
 ```
 
 # 2. JSX的本质
+
+```html
+<!-- 示例1：使用JSX的前提是必须借助babel； -->
+<body>
+  <script
+    src="https://unpkg.com/react@17/umd/react.development.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    crossorigin
+  ></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    // JSX -> babel -> React.createElement()
+    // 如果我们直接使用msg2，则不需要引入babel.min.js，更加不需要在 type="text/babel"
+    const msg1 = <div>hello</div>
+    const msg2 = React.createElement("div", null, "hello")
+    ReactDOM.render(msg1, document.getElementById("root"))
+  </script>
+</body>
+```
+
+真正环境中不会使用以上方式，因为太慢了还要加载；会直接使用babel的JSX预处理器`npm install babel-cli@6 babel-preset-react-app@3`，就像css预处理器一样
+
+`https://babeljs.io/`
+
+![](./image/babel转jsx.png)
+
+# 3. createElement部分源码
