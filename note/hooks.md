@@ -262,9 +262,10 @@ export default function ContextHookDemo() {
 
 # 4. useReducer
 
-useReducer只是useState的替代；针对useState的复杂场景时应用
+useReducer只是useState的替代；针对useState的复杂场景时应用（比如：state 逻辑较复杂且包含多个子值，或者下一个 state 依赖于之前的 state 等。并且，使用 useReducer 还能给那些会触发深更新的组件做性能优化
+）
 
-
+ 
 ```js
 // index.js
 import { Home1, Home2, Home3 } from './useReducer';
