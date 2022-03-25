@@ -262,6 +262,9 @@ export default function ContextHookDemo() {
 
 # 4. useReducer
 
+useReducer只是useState的替代；针对useState的复杂场景时应用
+
+
 ```js
 // index.js
 import { Home1, Home2, Home3 } from './useReducer';
@@ -331,6 +334,10 @@ export function Home3() {
 }
 
 ```
+# 5. useCallback
+
+性能优化场景：在一个组件中将函数传入子元素作为回调时，useCallback对函数进行处理
+
 
 
 
