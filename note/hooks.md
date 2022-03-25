@@ -289,7 +289,8 @@ function reducerHome3(state, action) {
     case 'increment':
       return state + 6;
     case 'decrement':
-      return state - 6;
+      // 这里可以actions.payload.aa获取dispatch传入的参数
+      return state - action.payload.aa;
     default:
       throw new Error();
   }
@@ -328,10 +329,16 @@ export function Home3() {
     <>
       <p>home状态值: {state}</p>
       <button onClick={(e) => dispatch({ type: 'increment' })}>+6</button>
-      <button onClick={(e) => dispatch({ type: 'decrement' })}>-6</button>
+      <!--    payload传参    -->
+      <button
+        onClick={(e) => dispatch({ type: 'decrement', payload: { aa: 10 } })}
+      >
+        -10
+      </button>
     </>
   );
 }
+
 
 ```
 # 5. useCallback
