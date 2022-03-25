@@ -265,7 +265,14 @@ export default function ContextHookDemo() {
 useReducer只是useState的替代；针对useState的复杂场景时应用（比如：state 逻辑较复杂且包含多个子值，或者下一个 state 依赖于之前的 state 等。并且，使用 useReducer 还能给那些会触发深更新的组件做性能优化
 ）
 
- 
+// 第一个参数是reducer函数(配套dispatch)
+// 第二个参数是state的值(可以是对象，可以直接是值)
+// 第三个参数是一个函数init，函数init接受useReducer的第二个参数作为参数
+
+const [state, dispatch] = useReducer(reducer, initialCount, init);
+
+---
+
 ```js
 // index.js
 import { Home1, Home2, Home3 } from './useReducer';
@@ -340,8 +347,65 @@ export function Home3() {
   );
 }
 
+```
+
+
+**下面`useReducer`的第三个参数作用可以将用于计算 `state `的逻辑提取到 `reducer` 外部**
+
+
+```js
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './App';
+
+import { Counter } from './useReducer02';
+
+ReactDOM.render(<Counter initialCount={0} />, document.getElementById('root'));
+
+
+
+// useReducer02.js
+import React, { useReducer } from 'react';
+
+function init(initialCount) {
+  return { count: initialCount };
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    case 'reset':
+      return init(action.payload);
+    default:
+      throw new Error();
+  }
+}
+
+export function Counter({ initialCount }) {
+  const [state, dispatch] = useReducer(reducer, initialCount, init);
+  return (
+    <>
+      Count: {state.count}
+      <button
+        onClick={() => dispatch({ type: 'reset', payload: initialCount })}
+      >
+        Reset
+      </button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
+      <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+    </>
+  );
+}
 
 ```
+
+
+
 # 5. useCallback
 
 性能优化场景：在一个组件中将函数传入子元素作为回调时，useCallback对函数进行处理
