@@ -260,6 +260,77 @@ export default function ContextHookDemo() {
 
 ```
 
+# 4. useReducer
+
+```js
+// index.js
+import { Home1, Home2, Home3 } from './useReducer';
+ReactDOM.render(<Home3 />, document.getElementById('root'));
+
+// useReducer.js
+import React, { useReducer, useState } from 'react';
+
+function reducerHome2(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { ...state, count: state.count + 5 };
+    case 'decrement':
+      return { ...state, count: state.count - 5 };
+    default:
+      throw new Error();
+  }
+}
+
+function reducerHome3(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return state + 6;
+    case 'decrement':
+      return state - 6;
+    default:
+      throw new Error();
+  }
+}
+
+export function Home1() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <p>home状态值: {count}</p>
+      <button onClick={(e) => setCount(count + 1)}>+1</button>
+      <button onClick={(e) => setCount(count - 1)}>-1</button>
+    </>
+  );
+}
+
+// useReducer只是useState的替代；针对useState的复杂场景时应用
+
+// state的值根据传入的而定，传入可以对象，可以直接是值（Home3）
+export function Home2() {
+  const [state, dispatch] = useReducer(reducerHome2, { count: 0 });
+
+  return (
+    <>
+      <p>home状态值: {state.count}</p>
+      <button onClick={(e) => dispatch({ type: 'increment' })}>+5</button>
+      <button onClick={(e) => dispatch({ type: 'decrement' })}>-5</button>
+    </>
+  );
+}
+
+export function Home3() {
+  const [state, dispatch] = useReducer(reducerHome3, 0);
+  return (
+    <>
+      <p>home状态值: {state}</p>
+      <button onClick={(e) => dispatch({ type: 'increment' })}>+6</button>
+      <button onClick={(e) => dispatch({ type: 'decrement' })}>-6</button>
+    </>
+  );
+}
+
+```
 
 
 
