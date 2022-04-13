@@ -85,3 +85,10 @@ shouldComponentUpdate(nextProps, nextState){
     }
 }
 ```
+
+
+## getSnapshotBeforeUpdate()
+
+被调用于render之后，可以读取但无法使用DOM的时候。它使您的组件可以在可能更改之前从DOM捕获一些信息（例如滚动位置）。此生命周期返回的任何值都将作为参数传递给componentDidUpdate
+
+![](../note/image/11111.png)
