@@ -1,4 +1,6 @@
 # React生命周期
+> 图：https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
 + 生命周期：某一个时刻组件会自动调用执行的函数
 + 声明周期函数四大阶段：
     - 初始化阶段
