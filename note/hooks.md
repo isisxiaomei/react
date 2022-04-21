@@ -1,3 +1,32 @@
+# 0 hooks规则
+
+规则1： 只能在react的函数组件中调用hook，并且hook只能在react函数组件的最顶层
+
+
+```js
+// 不要在循环，条件或嵌套函数中调用 Hook， 确保总是在你的 React 函数的最顶层以及任何 return 之前调用他们
+//  React 靠的是 Hook 调用的顺序，只要 Hook 的调用顺序在多次渲染之间保持一致，React 就能正确地将内部 state 和对应的 Hook 进行关联；
+
+
+// 多次渲染时不一致，所以出错。首次渲染不会调用，后面name有值就会调用，所以多次渲染之间不一致；违反规则1
+
+if (name !== '') {
+    useEffect(function persistForm() {
+      localStorage.setItem('formData', name);
+    });
+}
+
+// 如果我们想要有条件地执行一个 effect，可以将判断放到 Hook 的内部
+useEffect(function persistForm() {
+    // 👍 将条件判断放置在 effect 中
+    if (name !== '') {
+      localStorage.setItem('formData', name);
+    }
+  });
+```
+
+规则2：在自定义hook中调用其他hook
+
 # 1. useState使用
 
 useState：接受一个参数作为返回数组元素的第一个状态变量的默认值。
